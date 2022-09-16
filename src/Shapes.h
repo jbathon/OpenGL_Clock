@@ -9,10 +9,29 @@
 #include <GL/freeglut.h>
 #include "Color.h"
 
-void glCircle(float xOffset, float yOffset, float scale, Color color);
 
-void glClockTicks(float xOffset, float yOffset, float scale);
+/**** Shapes ****/
+void myGLCircle(float xOffset, float yOffset, float scale, Color color);
+void myGLDigitalDiamondV(float xOffset, float yOffset, float scale, Color color);
+void myGLDigitalDiamondH(float xOffset, float yOffset, float scale, Color color);
 
-void glClock(float xOffset, float yOffset, float scale);
+/**** Numbers ****/
+void myGLZero(float xOffset, float yOffset, float scale, Color color);
+void myGLOne(float xOffset, float yOffset, float scale, Color color);
+void myGLTwo(float xOffset, float yOffset, float scale, Color color);
+void myGLThree(float xOffset, float yOffset, float scale, Color color);
+void myGLFour(float xOffset, float yOffset, float scale, Color color);
+void myGLFive(float xOffset, float yOffset, float scale, Color color);
+void myGLSix(float xOffset, float yOffset, float scale, Color color);
+void myGLSeven(float xOffset, float yOffset, float scale, Color color);
+void myGLEight(float xOffset, float yOffset, float scale, Color color);
+void myGLNine(float xOffset, float yOffset, float scale, Color color);
+
+
+/** Clock Shapes **/
+
+void myGLClockTicks(float xOffset, float yOffset, float scale);
+void glClockNumbers(float xOffset, float yOffset, float scale);
+void myGLAnalogClock(float xOffset, float yOffset, float scale);
 
 #endif //OPENGL_CLOCK_SHAPES_H
