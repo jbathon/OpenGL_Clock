@@ -1,18 +1,26 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 #include <iostream>
+#include <cmath>
+#include "Shapes.h"
 
 int screen_width = 500, screen_height = 500;
 
+int size = std::min(screen_width,screen_height);
+
+int xOffset = size/2.0f;
+
+int yOffset = size/2.0f;
+
+float scale = size/200.0f;
+
 void display ( void )
 {
-
     // Sets pixels to default values
     glClear(GL_COLOR_BUFFER_BIT);
 
+    myGLAnalogClock(xOffset, yOffset, scale);
 
-    // Ends drawing on the window
-    glEnd();
     glutSwapBuffers();
 }
 
@@ -22,8 +30,12 @@ void idle ( void )
 
 void reshape( int w, int h )
 {
-    /* width & height don't change */
-    glutPostRedisplay();
+    size = std::min(w,h);
+//    xOffset = size/2.0f;
+//    yOffset = size/2.0f;
+//    scale = size/200.0f;
+
+    glViewport((w-size)/2.0f,(h-size)/2.0f, size,size);
 }
 
 void init() {
@@ -44,7 +56,7 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
 
     /* we got a RGBA buffer and we're double buffering! */
-    glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE );
+    glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE );
 
     /* set some size for the window. */
     glutInitWindowSize( screen_width, screen_height );
@@ -53,7 +65,7 @@ int main(int argc, char** argv)
     glutInitWindowPosition( 100, 100 );
 
     /* make the window.  give it a cool title */
-    glutCreateWindow("Bresenham Line Algorithm");
+    glutCreateWindow("Clock");
 
     init();
 
