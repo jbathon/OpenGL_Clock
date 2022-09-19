@@ -13,6 +13,8 @@
 /**** Shapes ****/
 void myGLCircle(float xOffset, float yOffset, float scale, Color color);
 
+void myGLRectangle(float width, float height, float xOffset, float yOffset, Color color);
+
 void myGLRectangleOutline(float width, float height, float xOffset, float yOffset, Color color);
 
 void myGLDigitalDiamondV(float xOffset, float yOffset, float scale, Color color);
@@ -47,9 +49,9 @@ void myGLClockTicks(float xOffset, float yOffset, float scale);
 
 void glClockNumbers(float xOffset, float yOffset, float scale);
 
-void myGLHourHand(int h, float xOffset, float yOffset, float scale);
+void myGLHourHand(int h, int min, float xOffset, float yOffset, float scale);
 
-void myGLMinuteHand(int min, float xOffset, float yOffset, float scale);
+void myGLMinuteHand(int min, int sec, float xOffset, float yOffset, float scale);
 
 void myGLSecondHand(int sec, float xOffset, float yOffset, float scale);
 

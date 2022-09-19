@@ -26,6 +26,18 @@ void myGLCircle(float xOffset, float yOffset, float scale, Color color) {
 
 }
 
+void myGLRectangle(float width, float height, float xOffset, float yOffset, Color color) {
+    glBegin(GL_POLYGON);
+    glColor4ub(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    glVertex2d(xOffset, yOffset + height);
+    glVertex2d(xOffset + (width / 2), yOffset + height);
+    glVertex2d(xOffset + (width / 2), yOffset - height);
+    glVertex2d(xOffset, yOffset - height);
+    glVertex2d(xOffset - (width / 2), yOffset - height);
+    glVertex2d(xOffset - (width / 2), yOffset + height);
+    glEnd();
+}
+
 void myGLRectangleOutline(float width, float height, float xOffset, float yOffset, Color color) {
     glBegin(GL_LINE_LOOP);
     glColor4ub(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
@@ -154,11 +166,11 @@ void myGLClockNumbers(float xOffset, float yOffset, float scale) {
     glEnd();
 }
 
-void myGLHourHand(int h, float xOffset, float yOffset, float scale) {
-    float theta = (-h + 3) * 30;
+void myGLHourHand(int h, int min, float xOffset, float yOffset, float scale) {
+    float theta = (-h + 3) * 30 - (min / 2);
     float xOut, yOut, xIn, yIn;
-    float radiusOut = (100.0f - 20.0f) * scale;
-    float radiusIn = 15.0f * scale;
+    float radiusOut = (100.0f - 35.0f) * scale;
+    float radiusIn = 10.0f * scale;
     xOut = radiusOut * cos(theta * (M_PI / 180.0f)) + xOffset;
     yOut = radiusOut * sin(theta * (M_PI / 180.0f)) + yOffset;
     xIn = -radiusIn * cos(theta * (M_PI / 180.0f)) + xOffset;
@@ -173,11 +185,11 @@ void myGLHourHand(int h, float xOffset, float yOffset, float scale) {
     glEnd();
 }
 
-void myGLMinuteHand(int min, float xOffset, float yOffset, float scale) {
-    float theta = (-min + 15) * 6;
+void myGLMinuteHand(int min, int sec, float xOffset, float yOffset, float scale) {
+    float theta = (-min + 15) * 6 - (sec / 10);
     float xOut, yOut, xIn, yIn;
-    float radiusOut = (100.0f - 35.0f) * scale;
-    float radiusIn = 10.0f * scale;
+    float radiusOut = (100.0f - 20.0f) * scale;
+    float radiusIn = 15.0f * scale;
     xOut = radiusOut * cos(theta * (M_PI / 180.0f)) + xOffset;
     yOut = radiusOut * sin(theta * (M_PI / 180.0f)) + yOffset;
     xIn = -radiusIn * cos(theta * (M_PI / 180.0f)) + xOffset;
@@ -217,8 +229,8 @@ void myGLClockHands(float xOffset, float yOffset, float scale) {
     time_t t = time(0);
     struct tm *lt = localtime(&t);
 
-    myGLHourHand(lt->tm_hour, xOffset, yOffset, scale);
-    myGLMinuteHand(lt->tm_min, xOffset, yOffset, scale);
+    myGLHourHand(lt->tm_hour, lt->tm_min, xOffset, yOffset, scale);
+    myGLMinuteHand(lt->tm_min, lt->tm_sec, xOffset, yOffset, scale);
     myGLSecondHand(lt->tm_sec, xOffset, yOffset, scale);
 }
 
@@ -227,7 +239,8 @@ void myGLClockHands(float xOffset, float yOffset, float scale) {
 /**************/
 
 void myGLDigitalClock(float xOffset, float yOffset, float scale) {
-    myGLRectangleOutline(30 * scale, 5 * scale, xOffset + (45 * scale), yOffset, Color(0, 0, 0));
+    myGLRectangle(50 * scale, 7 * scale, xOffset, yOffset - (40 * scale), Color(224.5, 224.5, 224.5));
+    myGLRectangleOutline(50 * scale, 7 * scale, xOffset, yOffset - (40 * scale), Color(0, 0, 0));
 }
 
 
@@ -236,7 +249,7 @@ void myGLAnalogClock(float xOffset, float yOffset, float scale) {
     myGLCircle(xOffset, yOffset, scale, Color(255, 255, 255));
     myGLClockTicks(xOffset, yOffset, scale);
     myGLClockNumbers(xOffset, yOffset, scale);
-//    myGLDigitalClock(xOffset, yOffset, scale);
+    myGLDigitalClock(xOffset, yOffset, scale);
     myGLClockHands(xOffset, yOffset, scale);
 }
 
